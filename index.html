@@ -73,6 +73,19 @@ h2{font-family:var(--f-head);font-weight:400;text-transform:uppercase;
 .closest .note{color:#fff;font-size:clamp(1.25rem,5.6vw,1.6rem);line-height:1.35}
 .closest .note b{font-weight:700}
 
+/* language switcher */
+.lang{position:absolute;z-index:2;top:calc(env(safe-area-inset-top,0px) + 12px);left:12px;
+  display:flex;gap:2px;padding:3px;border-radius:999px;
+  background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.2);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.lang[hidden]{display:none}
+.lang button{appearance:none;-webkit-appearance:none;background:none;border:0;
+  width:44px;height:44px;border-radius:50%;cursor:pointer;opacity:.45;
+  font:1.5rem/1 "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+  -webkit-tap-highlight-color:transparent}
+.lang button[aria-pressed="true"]{opacity:1;background:rgba(255,255,255,.18)}
+.lang button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
 /* desktop */
 @media (min-width:900px){
   body{max-width:none}
@@ -114,6 +127,10 @@ h2{font-family:var(--f-head);font-weight:400;text-transform:uppercase;
 <body>
 
 <header class="hero">
+  <nav class="lang" aria-label="Language" hidden>
+    <button type="button" data-lang="it" lang="it" aria-label="Italiano">🇮🇹</button>
+    <button type="button" data-lang="en" lang="en" aria-label="English">🇬🇧</button>
+  </nav>
   <img src="img/band.jpg" width="1919" height="1079" alt="Iron Thanes playing live in a rehearsal room" fetchpriority="high">
   <div class="hero-text">
     <h1>Iron Thanes</h1>
@@ -156,12 +173,8 @@ h2{font-family:var(--f-head);font-weight:400;text-transform:uppercase;
 </main>
 
 <script>
-/* Italian version, shown automatically when the browser language is Italian.
-   Force a language with ?lang=it or ?lang=en */
+/* Language: ?lang=it|en wins, then the visitor's last choice, then the browser language. */
 (function(){
-  var q=new URLSearchParams(location.search).get("lang");
-  var it=q?q==="it":(navigator.language||"").toLowerCase().indexOf("it")===0;
-  if(!it) return;
   var T={
     sub:"Concorso per il logo",
     name:"Abbiamo dovuto cambiare nome da Iron Age a <b>Iron Thanes</b>.",
@@ -182,15 +195,43 @@ h2{font-family:var(--f-head);font-weight:400;text-transform:uppercase;
     "proto-3.jpg":"Prototipo AI: elmo con pennacchio su una croce-spada sopra la parola Thanes",
     "closest.jpg":"Il logo più vicino alla nostra idea: elmo con maglia di ferro su una croce, Iron Thanes in lettere gotiche"
   };
-  document.documentElement.lang="it";
-  document.title="Iron Thanes – Concorso per il logo";
-  var m=document.querySelector('meta[name="description"]');
-  if(m) m.content="Concorso per il logo degli Iron Thanes. Mandaci il tuo logo nei DM di Instagram.";
-  document.querySelectorAll("[data-i18n]").forEach(function(e){
-    var k=e.getAttribute("data-i18n"); if(T[k]) e.innerHTML=T[k];
-  });
-  document.querySelectorAll("img").forEach(function(i){
-    var f=(i.getAttribute("src")||"").split("/").pop(); if(A[f]) i.alt=A[f];
+  var TITLE={en:document.title,it:"Iron Thanes – Concorso per il logo"};
+  var meta=document.querySelector('meta[name="description"]');
+  var DESC={en:meta?meta.content:"",it:"Concorso per il logo degli Iron Thanes. Mandaci il tuo logo nei DM di Instagram."};
+  var els=document.querySelectorAll("[data-i18n]");
+  var imgs=document.querySelectorAll("img");
+  var btns=document.querySelectorAll(".lang button");
+  var nav=document.querySelector(".lang");
+  var i;
+  for(i=0;i<els.length;i++) els[i].setAttribute("data-en",els[i].innerHTML);
+  for(i=0;i<imgs.length;i++) imgs[i].setAttribute("data-en-alt",imgs[i].alt);
+
+  function set(l){
+    var it=l==="it";
+    document.documentElement.lang=l;
+    document.title=TITLE[l];
+    if(meta) meta.content=DESC[l];
+    for(var a=0;a<els.length;a++){
+      var k=els[a].getAttribute("data-i18n");
+      els[a].innerHTML=(it&&T[k])?T[k]:els[a].getAttribute("data-en");
+    }
+    for(var b=0;b<imgs.length;b++){
+      var f=(imgs[b].getAttribute("src")||"").split("/").pop();
+      imgs[b].alt=(it&&A[f])?A[f]:imgs[b].getAttribute("data-en-alt");
+    }
+    for(var c=0;c<btns.length;c++)
+      btns[c].setAttribute("aria-pressed",btns[c].getAttribute("data-lang")===l?"true":"false");
+  }
+
+  var q=new URLSearchParams(location.search).get("lang"), saved=null;
+  try{saved=localStorage.getItem("lang");}catch(e){}
+  var l=(q==="it"||q==="en")?q:(saved==="it"||saved==="en")?saved
+        :((navigator.language||"").toLowerCase().indexOf("it")===0?"it":"en");
+  set(l);
+  if(nav) nav.hidden=false;
+  for(i=0;i<btns.length;i++) btns[i].addEventListener("click",function(){
+    var v=this.getAttribute("data-lang"); set(v);
+    try{localStorage.setItem("lang",v);}catch(e){}
   });
 })();
 </script>
