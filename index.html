@@ -45,20 +45,23 @@ img{display:block;width:100%;height:auto}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
 /* sections */
-section{padding:72px 24px 0}
-section:last-of-type{padding-bottom:72px}
+section{padding:112px 24px 0}
+section:last-of-type{padding-bottom:104px}
 .statement{font-size:clamp(1.6rem,7.4vw,2.2rem);text-align:center;line-height:1.3}
 .statement b{font-weight:700}
-.statement + .statement{margin-top:2.2em}
+.statement + .statement{margin-top:2.4em}
+.thanes h2{margin-bottom:36px}
+.thanes img{margin-bottom:56px}
 h2{font-family:var(--f-head);font-weight:400;text-transform:uppercase;
-  font-size:clamp(1.6rem,8vw,2.3rem);line-height:1.12;letter-spacing:.01em;margin-bottom:28px}
-.stack{display:grid;gap:14px}
-.closest img{border:1px solid #2a2a2a}
+  font-size:clamp(1.6rem,8vw,2.3rem);line-height:1.15;letter-spacing:.01em;margin-bottom:40px}
+.stack{display:grid;gap:44px}
+.stack img,.closest img{border:1px solid #2a2a2a}
+.note{color:#d0d0d0;font-size:1.1rem;line-height:1.6;margin-top:36px}
 
 /* call to action */
 .cta{text-align:center}
-.cta h2{margin-bottom:12px}
-.cta .sub{color:var(--muted);font-size:1.05rem;margin-bottom:28px}
+.cta h2{margin-bottom:24px}
+.cta .note{margin:0 0 44px}
 .btn{display:flex;align-items:center;justify-content:center;
   min-height:60px;padding:0 24px;background:var(--fg);color:#000;
   font-family:var(--f-head);font-size:clamp(1.05rem,5vw,1.35rem);
@@ -86,7 +89,9 @@ h2{font-family:var(--f-head);font-weight:400;text-transform:uppercase;
     <p class="statement">We had to change name from Iron Age to <b>Iron Thanes</b>.</p>
   </section>
 
-  <section>
+  <section class="thanes">
+    <h2>Who were the thanes?</h2>
+    <img src="img/knight.jpg" width="794" height="628" loading="lazy" alt="A medieval knight in armour charging on horseback through snow">
     <p class="statement">Thanes were <b>knights</b> in medieval times.</p>
     <p class="statement">They also possessed big amounts of land.</p>
   </section>
@@ -103,11 +108,12 @@ h2{font-family:var(--f-head);font-weight:400;text-transform:uppercase;
   <section class="closest">
     <h2>So far, this is the closest one to our idea.</h2>
     <img src="img/closest.jpg" width="1000" height="750" loading="lazy" alt="Closest logo so far: chainmail helmet on a cross, Iron Thanes in gothic lettering">
+    <p class="note">The T of Thanes is a cross, with a helmet on top.</p>
   </section>
 
   <section class="cta">
-    <h2>Send us your logo</h2>
-    <p class="sub">in our Instagram DMs</p>
+    <h2>But we're open to new ideas.</h2>
+    <p class="note">Send us your logo in our Instagram DMs. The winner will be tagged in one of our posts, and we'll take good care of them.</p>
     <a class="btn" href="https://www.instagram.com/iron_thanes.official/" target="_blank" rel="noopener">@iron_thanes.official</a>
   </section>
 </main>
