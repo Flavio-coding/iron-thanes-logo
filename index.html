@@ -69,6 +69,43 @@ h2{font-family:var(--f-head);font-weight:400;text-transform:uppercase;
 .btn:active{background:#d8d8d8}
 .btn:focus-visible{outline:3px solid #fff;outline-offset:4px}
 
+.closest img{border-color:#7a7a7a}
+.closest .note{color:#fff;font-size:clamp(1.25rem,5.6vw,1.6rem);line-height:1.35}
+.closest .note b{font-weight:700}
+
+/* desktop */
+@media (min-width:900px){
+  body{max-width:none}
+  .hero{aspect-ratio:auto;max-height:none;height:clamp(520px,66svh,780px)}
+  .hero img{object-position:50% 38%}
+  .hero-text{padding-bottom:48px}
+  .hero h1{font-size:clamp(5rem,9vw,9rem)}
+  .hero p{font-size:clamp(1.4rem,2.2vw,2rem)}
+  main{max-width:1200px;margin:0 auto}
+  section{padding:136px 48px 0}
+  section:last-of-type{padding-bottom:128px}
+  h2{text-align:center;font-size:clamp(2rem,3.2vw,2.8rem);margin-bottom:56px}
+  .statement{font-size:clamp(2rem,3vw,2.6rem)}
+
+  .thanes{display:grid;grid-template-columns:1fr 1fr;column-gap:72px;align-items:center}
+  .thanes h2{grid-column:1/-1}
+  .thanes img{grid-column:1;grid-row:2/4;margin:0}
+  .thanes .statement{grid-column:2;text-align:left}
+  .thanes .statement:nth-of-type(1){grid-row:2;align-self:end;margin:0 0 .6em}
+  .thanes .statement:nth-of-type(2){grid-row:3;align-self:start;margin:.6em 0 0}
+
+  .stack{grid-template-columns:repeat(3,1fr);gap:28px}
+  .stack img{aspect-ratio:4/3;object-fit:contain;background:#000}
+
+  .closest{display:grid;grid-template-columns:1.15fr 1fr;column-gap:72px;align-items:center}
+  .closest h2{grid-column:2;grid-row:1;align-self:end;text-align:left;margin-bottom:24px}
+  .closest img{grid-column:1;grid-row:1/3}
+  .closest .note{grid-column:2;grid-row:2;align-self:start;margin-top:0}
+
+  .cta{max-width:720px;margin:0 auto}
+  .btn{max-width:440px;margin:0 auto}
+}
+
 @media (prefers-reduced-motion:reduce){
   .hero h1,.hero p{animation:none}
 }
@@ -108,7 +145,7 @@ h2{font-family:var(--f-head);font-weight:400;text-transform:uppercase;
   <section class="closest">
     <h2>So far, this is the closest one to our idea.</h2>
     <img src="img/closest.jpg" width="1000" height="750" loading="lazy" alt="Closest logo so far: chainmail helmet on a cross, Iron Thanes in gothic lettering">
-    <p class="note">The T of Thanes is a cross, with a helmet on top.</p>
+    <p class="note">The T of Thanes is a <b>cross</b>, with a <b>helmet</b> on top.</p>
   </section>
 
   <section class="cta">
