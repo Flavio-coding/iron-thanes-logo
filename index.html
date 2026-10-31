@@ -117,24 +117,24 @@ h2{font-family:var(--f-head);font-weight:400;text-transform:uppercase;
   <img src="img/band.jpg" width="1919" height="1079" alt="Iron Thanes playing live in a rehearsal room" fetchpriority="high">
   <div class="hero-text">
     <h1>Iron Thanes</h1>
-    <p>Logo contest</p>
+    <p data-i18n="sub">Logo contest</p>
   </div>
 </header>
 
 <main>
   <section>
-    <p class="statement">We had to change name from Iron Age to <b>Iron Thanes</b>.</p>
+    <p class="statement" data-i18n="name">We had to change name from Iron Age to <b>Iron Thanes</b>.</p>
   </section>
 
   <section class="thanes">
-    <h2>Who were the thanes?</h2>
+    <h2 data-i18n="who">Who were the thanes?</h2>
     <img src="img/knight.jpg" width="794" height="628" loading="lazy" alt="A medieval knight in armour charging on horseback through snow">
-    <p class="statement">Thanes were <b>knights</b> in medieval times.</p>
-    <p class="statement">They also possessed big amounts of land.</p>
+    <p class="statement" data-i18n="knights">Thanes were <b>knights</b> in medieval times.</p>
+    <p class="statement" data-i18n="land">They also possessed big amounts of land.</p>
   </section>
 
   <section>
-    <h2>Here are some prototypes of the logo made with AI</h2>
+    <h2 data-i18n="protos">Here are some prototypes of the logo made with AI</h2>
     <div class="stack">
       <img src="img/proto-1.jpg" width="900" height="491" loading="lazy" alt="AI logo prototype: iron helmet on a cross, Iron Thanes lettering, Heavy Metal Cover Band">
       <img src="img/proto-2.jpg" width="900" height="675" loading="lazy" alt="AI logo prototype: cross as the T of Thanes with a small helmet">
@@ -143,17 +143,57 @@ h2{font-family:var(--f-head);font-weight:400;text-transform:uppercase;
   </section>
 
   <section class="closest">
-    <h2>So far, this is the closest one to our idea.</h2>
+    <h2 data-i18n="closest">So far, this is the closest one to our idea.</h2>
     <img src="img/closest.jpg" width="1000" height="750" loading="lazy" alt="Closest logo so far: chainmail helmet on a cross, Iron Thanes in gothic lettering">
-    <p class="note">The T of Thanes is a <b>cross</b>, with a <b>helmet</b> on top.</p>
+    <p class="note" data-i18n="idea">The T of Thanes is a <b>cross</b>, with a <b>helmet</b> on top.</p>
   </section>
 
   <section class="cta">
-    <h2>But we're also open to new ideas.</h2>
-    <p class="note">Send us your logo in our Instagram DMs. The winner will be tagged in one of our posts, and we'll take good care of them.</p>
+    <h2 data-i18n="open">But we're open to new ideas.</h2>
+    <p class="note" data-i18n="send">Send us your logo in our Instagram DMs. The winner will be tagged in one of our posts, and we'll take good care of them.</p>
     <a class="btn" href="https://www.instagram.com/iron_thanes.official/" target="_blank" rel="noopener">@iron_thanes.official</a>
   </section>
 </main>
+
+<script>
+/* Italian version, shown automatically when the browser language is Italian.
+   Force a language with ?lang=it or ?lang=en */
+(function(){
+  var q=new URLSearchParams(location.search).get("lang");
+  var it=q?q==="it":(navigator.language||"").toLowerCase().indexOf("it")===0;
+  if(!it) return;
+  var T={
+    sub:"Concorso per il logo",
+    name:"Abbiamo dovuto cambiare nome da Iron Age a <b>Iron Thanes</b>.",
+    who:"Chi erano i thanes?",
+    knights:"I thanes erano <b>cavalieri</b> nel Medioevo.",
+    land:"Possedevano anche grandi quantità di terre.",
+    protos:"Ecco alcuni prototipi del logo realizzati con l’AI",
+    closest:"Finora, questo è il più vicino alla nostra idea.",
+    idea:"La T di Thanes è una <b>croce</b>, con un <b>elmo</b> sopra.",
+    open:"Ma siamo aperti a nuove idee.",
+    send:"Mandaci il tuo logo nei DM di Instagram. Il vincitore verrà taggato in uno dei nostri post e avrà tutta la nostra attenzione."
+  };
+  var A={
+    "band.jpg":"Gli Iron Thanes suonano dal vivo in sala prove",
+    "knight.jpg":"Un cavaliere medievale in armatura carica a cavallo nella neve",
+    "proto-1.jpg":"Prototipo AI: elmo di ferro su una croce, scritta Iron Thanes, Heavy Metal Cover Band",
+    "proto-2.jpg":"Prototipo AI: la croce come T di Thanes con un piccolo elmo",
+    "proto-3.jpg":"Prototipo AI: elmo con pennacchio su una croce-spada sopra la parola Thanes",
+    "closest.jpg":"Il logo più vicino alla nostra idea: elmo con maglia di ferro su una croce, Iron Thanes in lettere gotiche"
+  };
+  document.documentElement.lang="it";
+  document.title="Iron Thanes – Concorso per il logo";
+  var m=document.querySelector('meta[name="description"]');
+  if(m) m.content="Concorso per il logo degli Iron Thanes. Mandaci il tuo logo nei DM di Instagram.";
+  document.querySelectorAll("[data-i18n]").forEach(function(e){
+    var k=e.getAttribute("data-i18n"); if(T[k]) e.innerHTML=T[k];
+  });
+  document.querySelectorAll("img").forEach(function(i){
+    var f=(i.getAttribute("src")||"").split("/").pop(); if(A[f]) i.alt=A[f];
+  });
+})();
+</script>
 
 </body>
 </html>
